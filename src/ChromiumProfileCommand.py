@@ -4,22 +4,26 @@ import argparse
 from ChromiumProfile import ChromiumProfile
 
 def command_tsv(args):
-    c = ChromiumProfile()
-    print(c.Tsv)
+    if args.file_path: profile.LocalStatePath = args.file_path
+    print(profile.Tsv)
 def command_list(args):
-    c = ChromiumProfile()
-    if args.dirname: print(c.Dirnames)
-    elif args.username: print(c.Usernames)
+    if args.file_path: profile.LocalStatePath = args.file_path
+    if args.dirname: print(profile.Dirnames)
+    elif args.username: print(profile.Usernames)
     else: parser_list.print_help()
 def command_get(args):
-    c = ChromiumProfile()
-    if args.dirname: print(c.GetDirname(args.dirname))
-    elif args.username: print(c.GetUsername(args.username))
-    elif args.last_used: print(c.LastUsed)
+    if args.file_path: profile.LocalStatePath = args.file_path
+    if args.dirname: print(profile.GetDirname(args.dirname))
+    elif args.username: print(profile.GetUsername(args.username))
+    elif args.last_used: print(profile.LastUsed)
     else: parser_get.print_help()
+
+profile = ChromiumProfile()
 
 parser = argparse.ArgumentParser(description='Chromiumのプロファイル情報を取得する。')
 subparsers = parser.add_subparsers()
+
+parser.add_argument('-f', '--file-path', help='~/.config/chromium/Local State 以外の場所ならセットする')
 
 parser_tsv = subparsers.add_parser('tsv', help='')
 parser_list = subparsers.add_parser('list', help='')

@@ -16,11 +16,11 @@ class ChromiumProfile:
     def LocalStatePath(self): return self.__FilePath;
     @LocalStatePath.setter
     def LocalStatePath(self, value):
-        if os.path.exists(value):
-            self.__FilePath = value
-            __Open()
-    def __Open(self):
-        if os.path.exists(self.__FilePath): self.__JSON = open(os.path.expanduser(os.path.expandvars(self.__FilePath))) 
+        path = self.__ExpandPath(value)
+        if os.path.exists(path):
+            self.__FilePath = path
+            self.__JSON = json.load(open(path))
+    def __ExpandPath(self, path): return os.path.expanduser(os.path.expandvars(path))
     def __NewLine(self, array):
         str=''
         for v in array: str+=v+'\n'
@@ -52,6 +52,9 @@ class ChromiumProfile:
 
 # 使い方
 #c = ChromiumProfile()
+#print(c.LocalStatePath)
+#c.LocalStatePath = "/tmp/work/code/LocalState_custom.json"
+#print(c.LocalStatePath)
 #print(c.Dirnames)
 #print(c.Usernames)
 #print(c.Tsv)
