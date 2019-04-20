@@ -109,6 +109,13 @@ python3 ChromiumProfileCommand.py get -l
 python3 ChromiumProfileCommand.py -f /tmp/LocalState.json get -d 'life'
 ```
 
+# おまけ
+
+```sh
+selector.sh
+```
+
+　`zenity`コマンドを用いてプロファイル選択GUIを表示する。
 
 # 開発環境
 
